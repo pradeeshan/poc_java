@@ -6,6 +6,11 @@ pipeline {
         jdk 'OpenJDK-17'
     }
 
+    environment {
+        DEPLOY_DIR = "/tmp/deploy"
+        TARGET_DIR = "target"
+    }
+
     stages {
 
         stage('Build') {
@@ -28,10 +33,10 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh '''
-                mkdir -p /tmp/deploy
-                cp target/*.jar /tmp/deploy/
-                '''
+                sh """
+                mkdir -p ${DEPLOY_DIR}
+                cp ${TARGET_DIR}/*.jar ${DEPLOY_DIR}/
+                """
             }
         }
     }
@@ -45,4 +50,3 @@ pipeline {
         }
     }
 }
-
