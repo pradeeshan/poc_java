@@ -5,19 +5,19 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'cd demo-app && mvn clean compile'
+                sh 'mvn clean compile'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'cd demo-app && mvn test'
+                sh 'mvn test'
             }
         }
 
         stage('Package') {
             steps {
-                sh 'cd demo-app && mvn package'
+                sh 'mvn package'
             }
         }
 
@@ -25,9 +25,18 @@ pipeline {
             steps {
                 sh '''
                 mkdir -p /tmp/deploy
-                cp demo-app/target/*.jar /tmp/deploy/
+                cp target/*.jar /tmp/deploy/
                 '''
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully'
+        }
+        failure {
+            echo 'Pipeline failed'
         }
     }
 }
