@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { label 'mac' }
 
     tools {
         maven 'Maven-3.9'
@@ -45,3 +45,4 @@ pipeline {
         }
     }
 }
+
